@@ -2,7 +2,7 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const axios = require("axios");
 
-const generateHtml = (survey) =>
+const generateHtml = (answers) =>
     `<!DOCTYPE html>
 <html lang="en">
 
@@ -22,15 +22,15 @@ const generateHtml = (survey) =>
         <p class="lead">Answer some questions and the javascript will take care of the rest.</p>
         <hr class="my-4">
         <!-- <p>It uses utility classes for typography and spacing to space content out within the larger container.</p> -->
-        <a class="btn btn-primary btn-lg" href="#" role="button">Generate</a>
+        
     </div>
 
     <ul class="list-group col-4 d-flex justify-content-center ">
-        <li class="list-group-item">Cras justo odio</li>
-        <li class="list-group-item">Dapibus ac facilisis in</li>
-        <li class="list-group-item">Morbi leo risus</li>
-        <li class="list-group-item">Porta ac consectetur ac</li>
-        <li class="list-group-item">Vestibulum at eros</li>
+        <li class="list-group-item">Name: ${answers.name}</li>
+        <li class="list-group-item">Loaction: ${answers.location}</li>
+        <li class="list-group-item">Bio: ${answers.bio}</li>
+        <li class="list-group-item">LinkedIn: ${answers.linkedIn}</li>
+        <li class="list-group-item">Github: ${answers.github}</li>
     </ul>
 
 </body>
@@ -38,8 +38,35 @@ const generateHtml = (survey) =>
 </html>`
 
 
-// const questions = [
-//     {
-//         name: ''
-//     }
-// ]
+const questions = [
+    {
+        name: 'name',
+        message: 'What is your name?'
+    },
+    {
+        name: 'location',
+        message: 'Where are you located?'
+    },
+    {
+        name: 'bio',
+        message: 'Give a quick bio of yourself.'
+    },
+    {
+        name: 'linkedIn',
+        message: 'What is your LinkedIn url?'
+    },
+    {
+        name: 'github',
+        message: 'What is your github url'
+    },
+]
+
+inquirer
+    .prompt(questions)
+    .then((answers) => {
+        const htmlPage = generateHtml(answers);
+
+        fs.writeFile('index.html', htmlPage, (err) =>
+            err ? console.log(err) : console.log('Successfully created index.html!')
+        );
+    })
