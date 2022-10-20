@@ -25,13 +25,15 @@ const generateHtml = (answers) =>
         
     </div>
 
-    <ul class="list-group col-4 d-flex justify-content-center ">
+    <div class="d-flex justify-content-center">
+        <ul class="list-group col-4 d-flex justify-content-center ">
         <li class="list-group-item">Name: ${answers.name}</li>
         <li class="list-group-item">Loaction: ${answers.location}</li>
         <li class="list-group-item">Bio: ${answers.bio}</li>
         <li class="list-group-item">LinkedIn: ${answers.linkedIn}</li>
         <li class="list-group-item">Github: ${answers.github}</li>
-    </ul>
+        </ul>
+    </div>
 
 </body>
 
